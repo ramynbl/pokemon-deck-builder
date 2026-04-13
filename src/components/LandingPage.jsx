@@ -10,7 +10,7 @@ export default function LandingPage() {
         </div>
         <ul className="navbar-links">
           <li><a href="#about">À propos</a></li>
-          <li><a href="#rules">Règles</a></li>
+          <li><Link to="/rules">Règles</Link></li>
           <li><a href="#pricing">Prix</a></li>
         </ul>
         <div className="navbar-cta">
@@ -34,7 +34,7 @@ export default function LandingPage() {
           <h1 className="hero-title">Deck Builder</h1>
           <div className="hero-actions">
             <Link to="/deck-builder" className="btn-primary">Deck Builder</Link>
-            <a href="#rules" className="btn-secondary">Règles</a>
+            <Link to="/rules" className="btn-secondary">Règles</Link>
           </div>
         </div>
       </div>

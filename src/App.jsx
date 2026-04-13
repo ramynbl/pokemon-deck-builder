@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
+import RulesPage from './components/RulesPage';
 import { usePokemonCards } from './hooks/usePokemonCards';
 import { useTCGdexCards } from './hooks/useTCGdexCards';
 import { useDeck } from './hooks/useDeck';
@@ -86,6 +87,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/rules" element={<RulesPage />} />
       <Route path="/deck-builder" element={<DeckBuilderApp />} />
     </Routes>
   );
