@@ -72,6 +72,30 @@ body {
   transform: scale(1.1) rotate(10deg);
 }
 
+.back-to-home {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+  background: var(--theme-toggle-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  color: var(--text-main);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.back-to-home:hover {
+  background: var(--theme-toggle-hover);
+  transform: scale(1.1);
+}
+
 /* App Layout */
 .app-container {
   display: flex;
@@ -562,6 +586,12 @@ body {
   color: white;
   font-size: 1.5rem;
   text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 .navbar-links {

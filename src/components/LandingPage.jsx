@@ -6,7 +6,7 @@ export default function LandingPage() {
     <div className="landing-page">
       <nav className="landing-navbar">
         <div className="navbar-logo">
-          <span className="nav-logo-txt">TCG Builder</span>
+          <img src="/logo-blanc.png" alt="Logo" className="nav-logo-img" />
         </div>
         <ul className="navbar-links">
           <li><a href="#about">À propos</a></li>

@@ -6,7 +6,9 @@ export default function RulesPage() {
     <div className="rules-page">
       <nav className="landing-navbar rules-navbar">
         <div className="navbar-logo">
-          <Link to="/" className="nav-logo-txt">TCG Builder</Link>
+          <Link to="/">
+            <img src="/logo-blanc.png" alt="Logo" className="nav-logo-img" />
+          </Link>
         </div>
         <ul className="navbar-links">
           <li><Link to="/">Accueil</Link></li>
