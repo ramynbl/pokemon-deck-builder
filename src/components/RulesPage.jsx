@@ -7,7 +7,7 @@ export default function RulesPage() {
       <nav className="landing-navbar rules-navbar">
         <div className="navbar-logo">
           <Link to="/">
-            <img src="/logo-blanc.png" alt="Logo" className="nav-logo-img" />
+            <img src="/logo-bleu.png" alt="Logo" className="nav-logo-img" />
           </Link>
         </div>
         <ul className="navbar-links">
@@ -22,7 +22,7 @@ export default function RulesPage() {
       <div className="rules-container">
         <h1 className="rules-main-title">Règles du jeu</h1>
         <p className="rules-intro">
-          Bienvenue dans la documentation officielle du Pokémon TCG Deck Builder. 
+          Bienvenue dans la documentation officielle du Pokémon TCG Deck Builder.
           Retrouvez ici les règles essentielles pour les deux formats supportés par l'application.
         </p>
 

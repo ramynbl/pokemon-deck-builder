@@ -8,6 +8,7 @@ import { useDeck } from './hooks/useDeck';
 import SearchBar from './components/SearchBar';
 import CardGrid from './components/CardGrid';
 import DeckPanel from './components/DeckPanel';
+import RegisterPage from './components/RegisterPage';
 
 function DeckBuilderApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -92,6 +93,7 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/rules" element={<RulesPage />} />
       <Route path="/deck-builder" element={<DeckBuilderApp />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );
 }
