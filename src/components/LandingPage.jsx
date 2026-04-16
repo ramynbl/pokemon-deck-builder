@@ -128,7 +128,7 @@ export default function LandingPage() {
                 stars: 5,
               },
               {
-                name: 'Sarah',
+                name: 'Irys',
                 pokemon: 'pikachu',
                 text: "En tant que joueuse débutante j'ai fait le choix de prendre l'abonnement premium avec un Coach, ce qui m'a permis d'apprendre très vite les bases et d'être compétitif. Si vous comptez vous lancer dans la compétition, je vous conseille.",
                 stars: 5,
