@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { MAX_CARDS, MAX_COPIES, FORMAT } from '../constants';
 
-export function useDeck(format = 'pocket') {
+export function useDeck(format = FORMAT.POCKET) {
   const [decks, setDecks] = useState(() => {
     return {
       pocket: JSON.parse(localStorage.getItem('pokemon_pocket_deck')) || [],
@@ -25,8 +26,8 @@ export function useDeck(format = 'pocket') {
   };
 
   const addCard = (card) => {
-    const maxCards = format === 'pocket' ? 20 : 60;
-    const maxCopies = format === 'pocket' ? 2 : 4;
+    const maxCards = MAX_CARDS[format] || 60;
+    const maxCopies = MAX_COPIES[format] || 4;
 
     if (deck.length >= maxCards) {
       showNotification(`Deck is full (Maximum ${maxCards} cards limit for ${format})`);

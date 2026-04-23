@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      onSearch(query);
+    }, 400);
+    return () => clearTimeout(timerRef.current);
+  }, [query]); // Intentionally excluding onSearch to avoid loops
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    clearTimeout(timerRef.current);
     onSearch(query);
   };
 

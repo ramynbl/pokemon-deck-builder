@@ -16,7 +16,7 @@ export default function DeckPanel({ deck, onRemove, onExport, format }) {
   }, {});
 
   return (
-    <aside className="deck-panel">
+    <aside className="deck-panel" role="complementary" aria-label="Deck panel">
       <div className="deck-header">
         <h2>Your Deck</h2>
         <div className="progress-indicator">
@@ -38,7 +38,7 @@ export default function DeckPanel({ deck, onRemove, onExport, format }) {
               <span className="deck-item-count">{group.count}x</span>
               <span className="deck-item-name">{group.name}</span>
             </div>
-            <button className="remove-btn">
+            <button className="remove-btn" aria-label={`Remove ${group.name} from deck`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
           </div>

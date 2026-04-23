@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import RulesPage from './components/RulesPage';
@@ -6,13 +6,20 @@ import { usePokemonCards } from './hooks/usePokemonCards';
 import { useTCGdexCards } from './hooks/useTCGdexCards';
 import { useDeck } from './hooks/useDeck';
 import SearchBar from './components/SearchBar';
+import FilterBar from './components/FilterBar';
 import CardGrid from './components/CardGrid';
 import DeckPanel from './components/DeckPanel';
 import RegisterPage from './components/RegisterPage';
+import { EMPTY_FILTERS, FORMAT } from './constants';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function DeckBuilderApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-  const [format, setFormat] = useState(() => localStorage.getItem('format') || 'pocket');
+  const [format, setFormat] = useState(() => localStorage.getItem('format') || FORMAT.POCKET);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState(EMPTY_FILTERS);
+  const [sortBy, setSortBy] = useState('releaseDate');
+  const [sortDir, setSortDir] = useState('desc');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -21,14 +28,61 @@ function DeckBuilderApp() {
 
   useEffect(() => {
     localStorage.setItem('format', format);
+    // Reset filters when format changes
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFilters(EMPTY_FILTERS);
+    setSearchQuery('');
   }, [format]);
 
-  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  }, []);
 
   const classicApi = usePokemonCards(format);
   const pocketApi = useTCGdexCards();
-  const { cards, loading, error, searchCards } = format === 'pocket' ? pocketApi : classicApi;
+  const { cards, loading, error, searchCards, loadMore, hasMore } = format === 'pocket' ? pocketApi : classicApi;
   const { deck, addCard, removeCard, exportDeck, notification } = useDeck(format);
+
+  // Trigger search when search or filters change
+  useEffect(() => {
+    searchCards(searchQuery, filters, sortBy, sortDir);
+  }, [searchQuery, filters, sortBy, sortDir, searchCards]);
+
+  const handleFilterChange = useCallback((key, value) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  }, []);
+
+  const handleSortChange = useCallback((newSortBy, newSortDir) => {
+    setSortBy(newSortBy);
+    setSortDir(newSortDir);
+  }, []);
+
+  const handleClearFilters = useCallback(() => {
+    setFilters(EMPTY_FILTERS);
+  }, []);
+
+  // Client-side sorting for TCGdex (Pocket) or backup for Classic
+  const sortedCards = useMemo(() => {
+    if (format === 'classic') return cards; // pokemontcg.io handles sorting in API
+
+    const sorted = [...cards];
+    
+    // If sorting by date, rely on original array order since API returns chronologically
+    // If asc, reverse the array. If desc, keep it (assuming API returns desc).
+    if (sortBy === 'releaseDate') {
+      return sortDir === 'asc' ? sorted.reverse() : sorted;
+    }
+
+    sorted.sort((a, b) => {
+      let valA = a.name.toLowerCase();
+      let valB = b.name.toLowerCase();
+      
+      if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+      if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    return sorted;
+  }, [cards, sortBy, sortDir, format]);
 
   return (
     <div className="app-container">
@@ -64,16 +118,30 @@ function DeckBuilderApp() {
             </button>
           </div>
 
-          <SearchBar onSearch={(query) => searchCards(query)} />
+          <SearchBar onSearch={(query) => setSearchQuery(query)} />
         </header>
 
+        <FilterBar 
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          sortBy={sortBy}
+          sortDir={sortDir}
+          onSortChange={handleSortChange}
+          format={format}
+          onClearFilters={handleClearFilters}
+        />
+
         <section className="catalog">
-          <CardGrid 
-            cards={cards} 
-            loading={loading} 
-            error={error} 
-            onAddCard={addCard} 
-          />
+          <ErrorBoundary onRetry={() => searchCards(searchQuery, filters, sortBy, sortDir)}>
+            <CardGrid 
+              cards={sortedCards} 
+              loading={loading} 
+              error={error} 
+              onAddCard={addCard}
+              hasMore={hasMore}
+              onLoadMore={() => loadMore(searchQuery, filters, sortBy, sortDir)}
+            />
+          </ErrorBoundary>
         </section>
       </main>
 
