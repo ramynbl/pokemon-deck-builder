@@ -154,7 +154,7 @@ export default function LandingPage() {
             {/* Card 1 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                 <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Img+Deck+Builder" alt="Placeholder Deck Builder" />
+                 <img src="/tcg.jpeg" alt="Deck & Guides" />
               </div>
               <div className="about-card-content">
                 <h3>Deck & Guides</h3>
@@ -165,7 +165,7 @@ export default function LandingPage() {
             {/* Card 2 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Img+Meta+Mensuelle" alt="Placeholder Meta" />
+                <img src="/echange.jpeg" alt="Méta par E-mail" />
               </div>
               <div className="about-card-content">
                 <h3>Méta par E-mail</h3>
@@ -176,7 +176,7 @@ export default function LandingPage() {
             {/* Card 3 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Img+Strategie" alt="Placeholder Strategy" />
+                <img src="/battle.jpeg" alt="Stratégies TCG" />
               </div>
               <div className="about-card-content">
                 <h3>Stratégies TCG</h3>

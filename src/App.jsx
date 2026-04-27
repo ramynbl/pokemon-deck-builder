@@ -14,6 +14,7 @@ import { EMPTY_FILTERS, FORMAT } from './constants';
 import ErrorBoundary from './components/ErrorBoundary';
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/PageTransition';
+import MetaHub from './components/MetaHub';
 
 function DeckBuilderApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -167,6 +168,7 @@ export default function App() {
         <Route path="/rules" element={<PageTransition><RulesPage /></PageTransition>} />
         <Route path="/deck-builder" element={<PageTransition><DeckBuilderApp /></PageTransition>} />
         <Route path="/register" element={<PageTransition><RegisterPage /></PageTransition>} />
+        <Route path="/guides-exclusifs" element={<PageTransition><MetaHub /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
