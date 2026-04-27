@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import RulesPage from './components/RulesPage';
 import { usePokemonCards } from './hooks/usePokemonCards';
@@ -12,6 +12,8 @@ import DeckPanel from './components/DeckPanel';
 import RegisterPage from './components/RegisterPage';
 import { EMPTY_FILTERS, FORMAT } from './constants';
 import ErrorBoundary from './components/ErrorBoundary';
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from './components/PageTransition';
 
 function DeckBuilderApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -156,12 +158,16 @@ function DeckBuilderApp() {
 }
 
 export default function App() {
+  const location = useLocation();
+
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/rules" element={<RulesPage />} />
-      <Route path="/deck-builder" element={<DeckBuilderApp />} />
-      <Route path="/register" element={<RegisterPage />} />
-    </Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><LandingPage /></PageTransition>} />
+        <Route path="/rules" element={<PageTransition><RulesPage /></PageTransition>} />
+        <Route path="/deck-builder" element={<PageTransition><DeckBuilderApp /></PageTransition>} />
+        <Route path="/register" element={<PageTransition><RegisterPage /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
   );
 }

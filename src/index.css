@@ -1129,10 +1129,10 @@ body {
 
 /* --- Footer --- */
 .landing-footer {
-  background: var(--theme-toggle-bg);
+  background: linear-gradient(rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.257)), url('/footer-1.jpeg') no-repeat center center / cover;
   border-top: 1px solid var(--glass-border);
   padding: 5rem 2rem 2rem 2rem;
-  backdrop-filter: blur(10px);
+  color: #fff;
 }
 
 .footer-content {
@@ -1174,7 +1174,7 @@ body {
 }
 
 .footer-column a {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -1190,15 +1190,15 @@ body {
 }
 
 .footer-socials a {
-  color: var(--text-main);
-  background: var(--panel-bg);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
   width: 44px;
   height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -1213,11 +1213,12 @@ body {
 .footer-newsletter {
   flex: 1;
   min-width: 350px;
-  background: var(--panel-bg);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
   padding: 2.5rem;
   border-radius: 16px;
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='dark'] .footer-newsletter {
@@ -1232,7 +1233,7 @@ body {
 }
 
 .footer-newsletter p {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 1.5rem;
   line-height: 1.5;
 }
@@ -1242,7 +1243,7 @@ body {
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: #fff;
 }
 
 .input-group {
@@ -1288,7 +1289,7 @@ body {
   text-align: center;
   padding-top: 2rem;
   border-top: 1px solid var(--glass-border);
-  color: var(--text-muted);
+  color: #fff;
   font-size: 0.95rem;
 }
 
@@ -1842,6 +1843,29 @@ body {
 
 .remove-chip:hover {
   opacity: 1;
+}
+
+.clear-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.85rem;
+  background: transparent;
+  border: 1px solid var(--text-muted);
+  border-radius: 99px;
+  color: var(--text-muted);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  animation: chipIn 0.3s ease-out;
+}
+
+.clear-all-btn:hover {
+  background: var(--error-color);
+  border-color: var(--error-color);
+  color: white;
 }
 
 @keyframes chipIn {

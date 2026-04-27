@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Footer from './Footer';
 
 export default function LandingPage() {
@@ -15,7 +16,45 @@ export default function LandingPage() {
     }
   };
 
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const elem = document.getElementById(targetId);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
+  // Variants
+  const popVariant = {
+    hidden: { opacity: 0, scale: 0.5, y: 20 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 20 } }
+  };
+
+  const slideLeftVariant = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 200, damping: 20 } }
+  };
+
+  const slideRightVariant = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 200, damping: 20 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  };
+
+  const cardVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 20 } }
+  };
+
+  const buttonHover = {
+    scale: 1.05,
+    transition: { type: "spring", stiffness: 400, damping: 10 }
+  };
+  const buttonTap = { scale: 0.95 };
 
   return (
     <div className="landing-page">
@@ -26,12 +65,14 @@ export default function LandingPage() {
           </Link>
         </div>
         <ul className="navbar-links">
-          <li><a href="#about">À propos</a></li>
-          <li><a href="#testimonials">Avis Clients</a></li>
+          <li><a href="#about" onClick={(e) => handleSmoothScroll(e, 'about')}>À propos</a></li>
+          <li><a href="#testimonials" onClick={(e) => handleSmoothScroll(e, 'testimonials')}>Avis Clients</a></li>
           <li><Link to="/rules">Règles</Link></li>
         </ul>
         <div className="navbar-cta">
-          <Link to="/register" className="btn-primary">Inscription</Link>
+          <motion.div whileHover={buttonHover} whileTap={buttonTap}>
+            <Link to="/register" className="btn-primary" style={{ display: 'inline-block' }}>Inscription</Link>
+          </motion.div>
         </div>
       </nav>
 
@@ -43,34 +84,75 @@ export default function LandingPage() {
         />
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <img 
+          <motion.img 
             src="/logo-trading-card.png" 
             alt="Pokémon Trading Card Game" 
             className="hero-main-logo" 
+            initial="hidden"
+            animate="visible"
+            variants={popVariant}
           />
-          <h1 className="hero-title">Deck Builder</h1>
-          <div className="hero-actions">
-            <Link to="/register" className="btn-primary">Inscription</Link>
-            <Link to="/deck-builder" className="btn-secondary">Deck Builder</Link>
-          </div>
+          <motion.h1 
+            className="hero-title"
+            initial="hidden"
+            animate="visible"
+            variants={popVariant}
+            transition={{ delay: 0.2 }}
+          >
+            Deck Builder
+          </motion.h1>
+          <motion.div 
+            className="hero-actions"
+            initial="hidden"
+            animate="visible"
+            variants={popVariant}
+            transition={{ delay: 0.4 }}
+          >
+            <motion.div whileHover={buttonHover} whileTap={buttonTap}>
+              <Link to="/register" className="btn-primary" style={{ display: 'inline-block' }}>Inscription</Link>
+            </motion.div>
+            <motion.div whileHover={buttonHover} whileTap={buttonTap}>
+              <Link to="/deck-builder" className="btn-secondary" style={{ display: 'inline-block' }}>Deck Builder</Link>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
       <section id="about" className="about-section">
         <div className="container">
-          <h2 className="section-title">À propos / About</h2>
-          <div className="about-description">
+          <motion.h2 
+            className="section-title"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={slideLeftVariant}
+          >
+            À propos / About
+          </motion.h2>
+          <motion.div 
+            className="about-description"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={slideLeftVariant}
+          >
             <p>
               Découvrez la plateforme ultime pour les passionnés : un <strong>Deckbuilder complet réunissant toutes les cartes des jeux TCG Pocket & TCG Classique</strong>.
             </p>
             <p>
               Profitez d'un outil intuitif pour créer, gérer et optimiser vos stratégies simplement en vous inscrivant avec votre adresse e-mail.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="about-cards">
+          <motion.div 
+            className="about-cards"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+          >
             {/* Card 1 */}
-            <div className="about-card">
+            <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
                  <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Img+Deck+Builder" alt="Placeholder Deck Builder" />
               </div>
@@ -78,10 +160,10 @@ export default function LandingPage() {
                 <h3>Deck & Guides</h3>
                 <p>Création de deck personnalisés et accès immédiat à la page Guides et Règles des jeux de base pour bien démarrer.</p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 2 */}
-            <div className="about-card">
+            <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
                 <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Img+Meta+Mensuelle" alt="Placeholder Meta" />
               </div>
@@ -89,10 +171,10 @@ export default function LandingPage() {
                 <h3>Méta par E-mail</h3>
                 <p>Envoi de guides détaillés sur les nouveaux decks et les métas du moment, envoyés mensuellement par e-mail après votre inscription.</p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 3 */}
-            <div className="about-card">
+            <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
                 <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Img+Strategie" alt="Placeholder Strategy" />
               </div>
@@ -100,26 +182,39 @@ export default function LandingPage() {
                 <h3>Stratégies TCG</h3>
                 <p>Accès exclusif aux documents complets et guides de stratégie approfondis TCG, automatiquement envoyés par e-mail dès votre adhésion.</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       <section id="testimonials" className="testimonials-section">
         <div className="container">
-          <div className="section-header-inline">
+          <motion.div 
+            className="section-header-inline"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideLeftVariant}
+          >
             <h2 className="section-title text-left">Ils nous font confiance</h2>
             <div className="carousel-controls">
-              <button className="carousel-btn prev" onClick={() => scroll('left')} aria-label="Avis précédent">
+              <motion.button whileHover={buttonHover} whileTap={buttonTap} className="carousel-btn prev" onClick={() => scroll('left')} aria-label="Avis précédent">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button className="carousel-btn next" onClick={() => scroll('right')} aria-label="Avis suivant">
+              </motion.button>
+              <motion.button whileHover={buttonHover} whileTap={buttonTap} className="carousel-btn next" onClick={() => scroll('right')} aria-label="Avis suivant">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="testimonials-carousel" ref={carouselRef}>
+          <motion.div 
+            className="testimonials-carousel" 
+            ref={carouselRef}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideRightVariant}
+          >
             {[
               {
                 name: 'Léa',
@@ -178,12 +273,18 @@ export default function LandingPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Rules */}
-      <section className="cta-rules-section">
+      <motion.section 
+        className="cta-rules-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={slideLeftVariant}
+      >
         <div className="container cta-flex-container">
           <div className="cta-text">
             <h2>Maitrisez toutes les Règles</h2>
@@ -194,13 +295,21 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="cta-action">
-            <Link to="/rules" className="btn-primary btn-large">Voir les Règles</Link>
+            <motion.div whileHover={buttonHover} whileTap={buttonTap}>
+              <Link to="/rules" className="btn-primary btn-large" style={{ display: 'inline-block' }}>Voir les Règles</Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Deck Builder */}
-      <section className="cta-deckbuilder-section">
+      <motion.section 
+        className="cta-deckbuilder-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={slideRightVariant}
+      >
         <div className="container cta-flex-container reverse">
           <div className="cta-text">
             <h2>Construis tes decks sans limites</h2>
@@ -211,13 +320,21 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="cta-action">
-            <Link to="/deck-builder" className="btn-primary btn-large">Lancer le Deck Builder</Link>
+            <motion.div whileHover={buttonHover} whileTap={buttonTap}>
+              <Link to="/deck-builder" className="btn-primary btn-large" style={{ display: 'inline-block' }}>Lancer le Deck Builder</Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Inscription */}
-      <section className="cta-signup-section">
+      <motion.section 
+        className="cta-signup-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={slideLeftVariant}
+      >
         <div className="container cta-flex-container">
           <div className="cta-text">
             <h2>Inscris-toi et reçois les decks méta par e-mail</h2>
@@ -229,10 +346,12 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="cta-action">
-            <Link to="/register" className="btn-primary btn-large">Recevoir les decks par mail</Link>
+            <motion.div whileHover={buttonHover} whileTap={buttonTap}>
+              <Link to="/register" className="btn-primary btn-large" style={{ display: 'inline-block' }}>Recevoir les decks par mail</Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <Footer />
