@@ -103,8 +103,8 @@ function DeckBuilderApp() {
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'light' ? '🌙' : '☀️'}
           </button>
-          <h1>TCG Pocket Builder</h1>
-          <p className="subtitle">Build your ultimate {format === 'pocket' ? '20' : '60'}-card deck.</p>
+          <h1>Strategy Camp — Deck Builder</h1>
+          <p className="subtitle">Construis ton deck {format === 'pocket' ? '20' : '60'} cartes.</p>
           
           <div className="format-toggle">
             <button 
