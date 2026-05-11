@@ -38,22 +38,30 @@ export default function RulesPage() {
 
           <div className="rules-grid">
             <div className="rule-card">
-              <div className="rule-icon">🃏</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Taille du deck</h3>
               <p>Un deck doit contenir exactement <strong>60 cartes</strong>.</p>
             </div>
             <div className="rule-card">
-              <div className="rule-icon">🔢</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pokedex.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Limite de copies</h3>
               <p>Maximum <strong>4 exemplaires</strong> d'une même carte (par nom), sauf les cartes Énergie de base qui sont illimitées.</p>
             </div>
             <div className="rule-card">
-              <div className="rule-icon">⚡</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/thunder-stone.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Cartes Énergie</h3>
               <p>Les cartes Énergie sont <strong>autorisées et essentielles</strong>. Elles permettent à vos Pokémon d'utiliser leurs attaques.</p>
             </div>
             <div className="rule-card">
-              <div className="rule-icon">⭐</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nugget.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Pokémon de base</h3>
               <p>Votre deck doit contenir au moins <strong>1 Pokémon de base</strong> pour pouvoir commencer la partie.</p>
             </div>
@@ -97,22 +105,30 @@ export default function RulesPage() {
 
           <div className="rules-grid">
             <div className="rule-card">
-              <div className="rule-icon">🃏</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Taille du deck</h3>
               <p>Un deck contient exactement <strong>20 cartes</strong>.</p>
             </div>
             <div className="rule-card">
-              <div className="rule-icon">🔢</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pokedex.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Limite de copies</h3>
               <p>Maximum <strong>2 exemplaires</strong> d'une même carte (par nom).</p>
             </div>
             <div className="rule-card">
-              <div className="rule-icon">🚫</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Pas de cartes Énergie</h3>
               <p>Les cartes Énergie <strong>n'existent pas</strong> dans ce format. L'énergie est générée automatiquement à chaque tour.</p>
             </div>
             <div className="rule-card">
-              <div className="rule-icon">🎯</div>
+              <div className="rule-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" alt="icon" style={{ width: '32px', height: '32px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Points de victoire</h3>
               <p>Récupérez <strong>3 points</strong> pour gagner la partie (au lieu de 6 récompenses).</p>
             </div>

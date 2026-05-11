@@ -76,7 +76,7 @@ export default function MetaHub() {
           </Link>
         </div>
         <div className="navbar-badge">
-          <span className="exclusive-badge">🔒 Guides Exclusifs</span>
+          <span className="exclusive-badge"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-potion.png" alt="icon" style={{ width: '16px', height: '16px', imageRendering: 'pixelated', verticalAlign: 'middle', marginRight: '4px' }} /> Guides Exclusifs</span>
         </div>
       </nav>
 

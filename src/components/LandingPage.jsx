@@ -62,7 +62,7 @@ export default function LandingPage() {
       <nav className="landing-navbar">
         <div className="navbar-logo">
           <Link to="/">
-            <img src="/logo-blanc.png" alt="Logo" className="nav-logo-img" />
+            <img src="/logo-2.svg" alt="Logo" className="nav-logo-img" />
           </Link>
         </div>
         <ul className="navbar-links">
@@ -73,15 +73,15 @@ export default function LandingPage() {
         </ul>
         <div className="navbar-cta">
           <motion.div whileHover={buttonHover} whileTap={buttonTap}>
-            <Link to="/register" className="btn-primary navbar-register-btn" style={{ display: 'inline-block' }}>S'inscrire — c'est gratuit</Link>
+            <Link to="/register" className="btn-primary navbar-register-btn" style={{ display: 'inline-block' }}>S'inscrire gratuitement</Link>
           </motion.div>
         </div>
       </nav>
 
       <div className="hero-section">
-        <img 
-          src="/background.png" 
-          alt="Pixel view background" 
+        <img
+          src="/background.png"
+          alt="Pixel view background"
           className="hero-bg"
         />
         <div className="hero-overlay"></div>
@@ -120,8 +120,8 @@ export default function LandingPage() {
             transition={{ delay: 0.45 }}
           >
             <span className="hero-social-proof-badge">
-              <span className="hero-social-proof-avatars">🎴🎴🎴</span>
-              <span>+500 dresseurs déjà inscrits</span>
+              <span className="hero-social-proof-avatars"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/vs-seeker.png" alt="players" style={{ width: '20px', height: '20px', imageRendering: 'pixelated', verticalAlign: 'middle' }} /></span>
+              <span>+50 dresseurs déjà inscrits</span>
             </span>
           </motion.div>
           <motion.div
@@ -169,14 +169,14 @@ export default function LandingPage() {
             variants={slideLeftVariant}
           >
             <p>
-              Strategy Camp réunit en un seul endroit le <strong>deck builder complet TCG Classique & Pocket</strong>, les analyses méta fraîches et les guides stratégiques — livrés directement dans ta boîte mail.
+              Strategy Camp réunit en un seul endroit le <strong>deck builder complet TCG Classique & Pocket</strong>, les analyses méta fraîches et les guides stratégiques. livrés directement dans ta boîte mail.
             </p>
             <p>
               Inscris-toi gratuitement et accède immédiatement à tous les outils pour construire, affiner et gagner.
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="about-cards"
             initial="hidden"
             whileInView="visible"
@@ -186,11 +186,12 @@ export default function LandingPage() {
             {/* Card 1 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                 <img src="/tcg.jpeg" alt="Deck & Guides" />
+                <img src="/tcg.jpeg" alt="Deck & Guides" />
               </div>
               <div className="about-card-content">
                 <h3>Deck & Guides</h3>
                 <p>Création de deck personnalisés et accès immédiat à la page Guides et Règles des jeux de base pour bien démarrer.</p>
+                <Link to="/deck-builder" className="btn-secondary mini-cta">Essayer le builder →</Link>
               </div>
             </motion.div>
 
@@ -202,6 +203,7 @@ export default function LandingPage() {
               <div className="about-card-content">
                 <h3>Méta par E-mail</h3>
                 <p>Envoi de guides détaillés sur les nouveaux decks et les métas du moment, envoyés mensuellement par e-mail après ton inscription.</p>
+                <Link to="/register" className="btn-secondary mini-cta">S'inscrire →</Link>
               </div>
             </motion.div>
 
@@ -213,6 +215,7 @@ export default function LandingPage() {
               <div className="about-card-content">
                 <h3>Stratégies TCG</h3>
                 <p>Accès exclusif aux documents complets et guides de stratégie approfondis TCG, automatiquement envoyés par e-mail dès ton inscription.</p>
+                <Link to="/register" className="btn-secondary mini-cta">Recevoir les Stratégies →</Link>
               </div>
             </motion.div>
           </motion.div>
@@ -232,25 +235,31 @@ export default function LandingPage() {
             C'est gratuit. Voilà ce que tu débloques.
           </motion.h2>
           <motion.p className="freemium-subtitle" variants={cardVariant}>
-            Inscris-toi en 30 secondes avec ton e-mail — aucune carte bancaire demandée.
+            Inscris-toi en 30 secondes avec ton e-mail. Aucune carte bancaire demandée.
           </motion.p>
           <div className="freemium-grid">
             <motion.div className="freemium-card" variants={cardVariant}>
-              <div className="freemium-icon">🃏</div>
+              <div className="freemium-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Deck Builder" style={{ width: '40px', height: '40px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Deck Builder complet</h3>
               <p>Accès immédiat au builder pour TCG Classique (60 cartes) et TCG Pocket (20 cartes). Construis, sauvegarde et affine tes listes sans limite.</p>
               <span className="freemium-tag">Accès immédiat</span>
             </motion.div>
             <motion.div className="freemium-card freemium-card--highlight" variants={cardVariant}>
-              <div className="freemium-icon">📧</div>
+              <div className="freemium-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-radar.png" alt="Méta par e-mail" style={{ width: '40px', height: '40px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Méta par e-mail</h3>
-              <p>Les meilleurs decks du moment, les nouveaux archétypes dominants et les analyses de méta — livrés directement dans ta boîte mail dès qu'une nouveauté arrive.</p>
+              <p>Les meilleurs decks du moment, les nouveaux archétypes dominants et les analyses de méta. Livrés directement dans ta boîte mail dès qu'une nouveauté arrive.</p>
               <span className="freemium-tag">Dès l'inscription</span>
             </motion.div>
             <motion.div className="freemium-card" variants={cardVariant}>
-              <div className="freemium-icon">📖</div>
+              <div className="freemium-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/town-map.png" alt="Guides stratégiques" style={{ width: '40px', height: '40px', imageRendering: 'pixelated' }} />
+              </div>
               <h3>Guides stratégiques</h3>
-              <p>Des documents complets sur les mécaniques de jeu, la gestion d'énergie et les stratégies avancées — envoyés automatiquement après ton inscription.</p>
+              <p>Des documents complets sur les mécaniques de jeu, la gestion d'énergie et les stratégies avancées. Envoyés automatiquement après ton inscription.</p>
               <span className="freemium-tag">Envoi automatique</span>
             </motion.div>
           </div>
@@ -267,7 +276,7 @@ export default function LandingPage() {
 
       <section id="testimonials" className="testimonials-section">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="section-header-inline"
             initial="hidden"
             whileInView="visible"
@@ -284,9 +293,9 @@ export default function LandingPage() {
               </motion.button>
             </div>
           </motion.div>
-          
-          <motion.div 
-            className="testimonials-carousel" 
+
+          <motion.div
+            className="testimonials-carousel"
             ref={carouselRef}
             initial="hidden"
             whileInView="visible"
@@ -335,15 +344,18 @@ export default function LandingPage() {
                 <div className="testimonial-header">
                   <div className="testimonial-avatar">
                     <img
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${
-                        { eevee: 133, pikachu: 25, jigglypuff: 39, charmander: 4, squirtle: 7, bulbasaur: 1 }[review.pokemon]
-                      }.gif`}
+                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${{ eevee: 133, pikachu: 25, jigglypuff: 39, charmander: 4, squirtle: 7, bulbasaur: 1 }[review.pokemon]
+                        }.gif`}
                       alt={review.pokemon}
                     />
                   </div>
                   <div className="testimonial-meta">
                     <h4>{review.name}</h4>
-                    <div className="stars">{'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}</div>
+                    <div className="stars">
+                      {[...Array(review.stars)].map((_, idx) => (
+                        <img key={idx} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/star-piece.png" alt="star" style={{ width: '16px', height: '16px', imageRendering: 'pixelated', verticalAlign: 'middle' }} />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className="testimonial-body">
@@ -356,7 +368,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Rules */}
-      <motion.section 
+      <motion.section
         className="cta-rules-section"
         initial="hidden"
         whileInView="visible"
@@ -367,8 +379,8 @@ export default function LandingPage() {
           <div className="cta-text">
             <h2>Maitrisez toutes les Règles</h2>
             <p>
-              Pour devenir un vrai maître Pokémon, il est primordial de comprendre les mécaniques de jeu. 
-              Que ce soit pour le format compétitif Classique (60 cartes) ou pour les affrontements rapides de TCG Pocket (20 cartes), 
+              Pour devenir un vrai maître Pokémon, il est primordial de comprendre les mécaniques de jeu.
+              Que ce soit pour le format compétitif Classique (60 cartes) ou pour les affrontements rapides de TCG Pocket (20 cartes),
               consultez notre guide officiel. Maîtrisez la gestion d'énergie, les évolutions, et remportez chaque partie !
             </p>
           </div>
@@ -403,7 +415,7 @@ export default function LandingPage() {
                   <div className="mockup-search" />
                   <div className="mockup-cards-grid">
                     {[...Array(9)].map((_, i) => (
-                      <div key={i} className={`mockup-card-thumb mockup-card-thumb--${['fire','water','grass','lightning','psychic','fighting','fire','water','grass'][i]}`} />
+                      <div key={i} className={`mockup-card-thumb mockup-card-thumb--${['fire', 'water', 'grass', 'lightning', 'psychic', 'fighting', 'fire', 'water', 'grass'][i]}`} />
                     ))}
                   </div>
                 </div>
@@ -437,7 +449,7 @@ export default function LandingPage() {
       </motion.section>
 
       {/* CTA Inscription */}
-      <motion.section 
+      <motion.section
         className="cta-signup-section"
         initial="hidden"
         whileInView="visible"
@@ -448,9 +460,9 @@ export default function LandingPage() {
           <div className="cta-text">
             <h2>Inscris-toi et reçois les decks méta par e-mail</h2>
             <p>
-              Ne manque aucune évolution critique de la métagame ! L'univers Pokémon évolue vite, tes stratégies doivent suivre. 
-              Rejoins notre communauté et reçois en exclusivité dans ta boîte e-mail nos analyses détaillées, 
-              les nouveaux archétypes de decks dominants, ainsi que des conseils tactiques de haut niveau. 
+              Ne manque aucune évolution critique de la métagame ! L'univers Pokémon évolue vite, tes stratégies doivent suivre.
+              Rejoins notre communauté et reçois en exclusivité dans ta boîte e-mail nos analyses détaillées,
+              les nouveaux archétypes de decks dominants, ainsi que des conseils tactiques de haut niveau.
               Une longueur d'avance garantie sur tes adversaires.
             </p>
           </div>

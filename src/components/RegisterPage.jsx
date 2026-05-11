@@ -42,7 +42,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle');
   const [openFaq, setOpenFaq] = useState(null);
-  const [countdown, setCountdown] = useState(3);
+  const [countdown, setCountdown] = useState(10);
   const navigate = useNavigate();
 
   // Redirection automatique vers le deck builder après succès
@@ -84,7 +84,7 @@ export default function RegisterPage() {
       <nav className="landing-navbar">
         <div className="navbar-logo">
           <Link to="/">
-            <img src="/logo-blanc.png" alt="Logo Strategy Camp" className="nav-logo-img" />
+            <img src="/logo-2.svg" alt="Logo Strategy Camp" className="nav-logo-img" />
           </Link>
         </div>
         <div className="navbar-cta">
@@ -105,7 +105,7 @@ export default function RegisterPage() {
         <div className="register-text-block">
           {/* Badge social proof */}
           <div className="register-social-proof">
-            <span className="register-social-badge">🎴 +500 dresseurs déjà inscrits</span>
+            <span className="register-social-badge"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/vs-seeker.png" alt="" style={{ width: '20px', height: '20px', imageRendering: 'pixelated', verticalAlign: 'middle', marginRight: '5px' }} /> +500 dresseurs déjà inscrits</span>
           </div>
 
           <h1 className="register-title">Rejoins le niveau supérieur</h1>
@@ -160,11 +160,31 @@ export default function RegisterPage() {
             )}
             {status === 'success' && (
               <div className="success-block">
-                <p className="success-message">🎉 Bienvenue dans l'équipe ! Surveille ta boîte mail.</p>
-                <p className="success-redirect">
-                  Tu vas être redirigé vers le Deck Builder dans <strong>{countdown}s</strong>…{' '}
-                  <Link to="/deck-builder" className="success-redirect-link">y aller maintenant →</Link>
-                </p>
+                <div className="success-card">
+                  <div className="success-card-header">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"
+                      alt=""
+                      className="success-card-icon"
+                    />
+                    <div>
+                      <p className="success-card-title">Inscription confirmée !</p>
+                      <p className="success-card-sub">Surveille ta boîte mail — tes premiers guides arrivent bientôt.</p>
+                    </div>
+                  </div>
+                  <div className="success-card-redirect">
+                    <div className="success-card-redirect-text">
+                      <span>🃏</span>
+                      <span>On t'emmène sur le Deck Builder pour que tu puisses commencer à jouer tout de suite.</span>
+                    </div>
+                    <div className="success-card-actions">
+                      <div className="success-countdown-badge">{countdown}s</div>
+                      <Link to="/deck-builder" className="success-go-now">
+                        Accéder maintenant →
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </form>
@@ -186,7 +206,11 @@ export default function RegisterPage() {
                   />
                   <div>
                     <strong>{r.name}</strong>
-                    <div className="stars" style={{ fontSize: '0.75rem' }}>{'★'.repeat(r.stars)}</div>
+                    <div className="stars" style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
+                      {[...Array(r.stars)].map((_, idx) => (
+                        <img key={idx} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/star-piece.png" alt="star" style={{ width: '12px', height: '12px', imageRendering: 'pixelated' }} />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <p>"{r.text}"</p>
