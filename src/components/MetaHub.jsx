@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,7 @@ export default function MetaHub() {
   const [selectedDeck, setSelectedDeck] = useState(null);
   const [cardImages, setCardImages] = useState({});
   const [loadingCards, setLoadingCards] = useState(false);
+  const imageCacheRef = useRef({});
 
   useEffect(() => {
     if (!selectedDeck) return;
@@ -26,10 +27,11 @@ export default function MetaHub() {
     const fetchImages = async () => {
       setLoadingCards(true);
       const allCards = [...selectedDeck.pokemon, ...selectedDeck.trainers];
-      const images = {};
+      const images = { ...imageCacheRef.current };
+      const uncached = allCards.filter(card => !images[card.display]);
       
       try {
-        await Promise.all(allCards.map(async (card) => {
+        await Promise.all(uncached.map(async (card) => {
           const query = `name:"${card.name}"`;
           const response = await fetch(`https://api.pokemontcg.io/v2/cards?q=${encodeURIComponent(query)}&pageSize=1`);
           const data = await response.json();
@@ -39,6 +41,7 @@ export default function MetaHub() {
             images[card.display] = 'https://placehold.co/240x330/1e293b/cbd5e1?text=' + encodeURIComponent(card.display);
           }
         }));
+        imageCacheRef.current = images;
         setCardImages(images);
       } catch (error) {
         console.error("Erreur lors du fetch des cartes", error);
@@ -67,12 +70,13 @@ export default function MetaHub() {
   };
 
   return (
+    
     <div className="meta-hub-page">
       {/* Navbar Exclusif */}
       <nav className="landing-navbar meta-navbar">
         <div className="navbar-logo">
           <Link to="/">
-            <img src="/logo-blanc.png" alt="Logo" className="nav-logo-img" />
+            <img src="/logo-2.svg" alt="Logo" className="nav-logo-img" />
           </Link>
         </div>
         <div className="navbar-badge">
@@ -164,8 +168,8 @@ export default function MetaHub() {
                   <div className="decklist-column">
                     <h3>Pokémon</h3>
                     <div className="cards-grid">
-                      {selectedDeck.pokemon.map((card, index) => (
-                        <motion.div key={index} className="meta-card-item" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={popVariant}>
+                      {selectedDeck.pokemon.map((card) => (
+                        <motion.div key={card.display} className="meta-card-item" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={popVariant}>
                           <div className="card-image-wrapper">
                             {loadingCards ? (
                               <div className="card-skeleton"></div>
@@ -186,8 +190,8 @@ export default function MetaHub() {
                   <div className="decklist-column">
                     <h3>Dresseurs & Énergies</h3>
                     <div className="cards-grid">
-                      {selectedDeck.trainers.map((card, index) => (
-                        <motion.div key={index} className="meta-card-item" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={popVariant}>
+                      {selectedDeck.trainers.map((card) => (
+                        <motion.div key={card.display} className="meta-card-item" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={popVariant}>
                           <div className="card-image-wrapper">
                             {loadingCards ? (
                               <div className="card-skeleton"></div>
@@ -217,7 +221,7 @@ export default function MetaHub() {
 
                 <div className="combo-timeline">
                   {selectedDeck.combos.map((combo, idx) => (
-                    <motion.div key={idx} className="combo-card" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={slideUpVariant}>
+                    <motion.div key={combo.title} className="combo-card" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={slideUpVariant}>
                       <div className="combo-header">
                         <div className="combo-icon">
                           <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>{idx + 1}</span>
@@ -258,5 +262,6 @@ export default function MetaHub() {
 
       <Footer />
     </div>
+    
   );
 }

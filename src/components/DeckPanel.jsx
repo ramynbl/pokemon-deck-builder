@@ -33,7 +33,7 @@ export default function DeckPanel({ deck, onRemove, onExport, format }) {
 
       <div className="deck-list">
         {Object.values(groupedCards).map((group) => (
-          <div key={group.id} className="deck-list-item" onClick={() => onRemove(group.indices[group.indices.length - 1])}>
+          <div key={group.id} className="deck-list-item" role="button" tabIndex={0} onClick={() => onRemove(group.indices[group.indices.length - 1])} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRemove(group.indices[group.indices.length - 1]); } }}>
             <div className="deck-item-info">
               <span className="deck-item-count">{group.count}x</span>
               <span className="deck-item-name">{group.name}</span>

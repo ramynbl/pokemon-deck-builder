@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import RulesPage from './components/RulesPage';
 import { usePokemonCards } from './hooks/usePokemonCards';
 import { useTCGdexCards } from './hooks/useTCGdexCards';
 import { useDeck } from './hooks/useDeck';
@@ -9,12 +7,16 @@ import SearchBar from './components/SearchBar';
 import FilterBar from './components/FilterBar';
 import CardGrid from './components/CardGrid';
 import DeckPanel from './components/DeckPanel';
-import RegisterPage from './components/RegisterPage';
 import { EMPTY_FILTERS, FORMAT } from './constants';
 import ErrorBoundary from './components/ErrorBoundary';
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/PageTransition';
-import MetaHub from './components/MetaHub';
+
+// Lazy-loaded routes (non-critical for initial render)
+const LandingPage = lazy(() => import('./components/LandingPage'));
+const RulesPage = lazy(() => import('./components/RulesPage'));
+const RegisterPage = lazy(() => import('./components/RegisterPage'));
+const MetaHub = lazy(() => import('./components/MetaHub'));
 
 function DeckBuilderApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -31,10 +33,6 @@ function DeckBuilderApp() {
 
   useEffect(() => {
     localStorage.setItem('format', format);
-    // Reset filters when format changes
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setFilters(EMPTY_FILTERS);
-    setSearchQuery('');
   }, [format]);
 
   const toggleTheme = useCallback(() => {
@@ -62,6 +60,13 @@ function DeckBuilderApp() {
 
   const handleClearFilters = useCallback(() => {
     setFilters(EMPTY_FILTERS);
+  }, []);
+
+  const handleFormatChange = useCallback((newFormat) => {
+    setFormat(newFormat);
+    // Reset filters and search inline instead of chaining effects
+    setFilters(EMPTY_FILTERS);
+    setSearchQuery('');
   }, []);
 
   // Client-side sorting for TCGdex (Pocket) or backup for Classic
@@ -103,19 +108,19 @@ function DeckBuilderApp() {
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'light' ? '🌙' : '☀️'}
           </button>
-          <h1>Strategy Camp — Deck Builder</h1>
+          <h1>Strategy Camp ‒ Deck Builder</h1>
           <p className="subtitle">Construis ton deck {format === 'pocket' ? '20' : '60'} cartes.</p>
           
           <div className="format-toggle">
             <button 
               className={`format-btn ${format === 'classic' ? 'active' : ''}`}
-              onClick={() => setFormat('classic')}
+              onClick={() => handleFormatChange('classic')}
             >
               TCG Classic
             </button>
             <button 
               className={`format-btn ${format === 'pocket' ? 'active' : ''}`}
-              onClick={() => setFormat('pocket')}
+              onClick={() => handleFormatChange('pocket')}
             >
               TCG Pocket
             </button>
@@ -158,18 +163,27 @@ function DeckBuilderApp() {
   );
 }
 
+const LoadingFallback = () => (
+  <div className="loading-state">
+    <div className="spinner"></div>
+    <p>Chargement…</p>
+  </div>
+);
+
 export default function App() {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><LandingPage /></PageTransition>} />
-        <Route path="/rules" element={<PageTransition><RulesPage /></PageTransition>} />
-        <Route path="/deck-builder" element={<PageTransition><DeckBuilderApp /></PageTransition>} />
-        <Route path="/register" element={<PageTransition><RegisterPage /></PageTransition>} />
-        <Route path="/guides-exclusifs" element={<PageTransition><MetaHub /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
+    <Suspense fallback={<LoadingFallback />}>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><LandingPage /></PageTransition>} />
+          <Route path="/rules" element={<PageTransition><RulesPage /></PageTransition>} />
+          <Route path="/deck-builder" element={<PageTransition><DeckBuilderApp /></PageTransition>} />
+          <Route path="/register" element={<PageTransition><RegisterPage /></PageTransition>} />
+          <Route path="/guides-exclusifs" element={<PageTransition><MetaHub /></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
+    </Suspense>
   );
 }

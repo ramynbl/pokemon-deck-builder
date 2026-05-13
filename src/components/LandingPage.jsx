@@ -58,6 +58,7 @@ export default function LandingPage() {
   const buttonTap = { scale: 0.95 };
 
   return (
+    
     <div className="landing-page">
       <nav className="landing-navbar">
         <div className="navbar-logo">
@@ -80,14 +81,14 @@ export default function LandingPage() {
 
       <div className="hero-section">
         <img
-          src="/background.png"
+          src="/background.webp"
           alt="Pixel view background"
           className="hero-bg"
         />
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <motion.img
-            src="/logo-trading-card.png"
+            src="/logo-trading-card.webp"
             alt="Pokémon Trading Card Game"
             className="hero-main-logo"
             initial="hidden"
@@ -186,7 +187,7 @@ export default function LandingPage() {
             {/* Card 1 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                <img src="/tcg.jpeg" alt="Deck & Guides" />
+                <img src="/tcg.webp" alt="Deck & Guides" />
               </div>
               <div className="about-card-content">
                 <h3>Deck & Guides</h3>
@@ -198,7 +199,7 @@ export default function LandingPage() {
             {/* Card 2 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                <img src="/echange.jpeg" alt="Méta par E-mail" />
+                <img src="/echange.webp" alt="Méta par E-mail" />
               </div>
               <div className="about-card-content">
                 <h3>Méta par E-mail</h3>
@@ -210,7 +211,7 @@ export default function LandingPage() {
             {/* Card 3 */}
             <motion.div className="about-card" variants={cardVariant}>
               <div className="card-image-placeholder">
-                <img src="/battle.jpeg" alt="Stratégies TCG" />
+                <img src="/battle.webp" alt="Stratégies TCG" />
               </div>
               <div className="about-card-content">
                 <h3>Stratégies TCG</h3>
@@ -477,5 +478,6 @@ export default function LandingPage() {
       {/* Footer */}
       <Footer />
     </div>
+    
   );
 }

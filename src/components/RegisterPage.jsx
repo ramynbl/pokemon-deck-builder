@@ -196,8 +196,8 @@ export default function RegisterPage() {
         <div className="register-reviews-inner">
           <p className="register-reviews-label">Ce qu'ils en disent</p>
           <div className="register-reviews-grid">
-            {MINI_REVIEWS.map((r, i) => (
-              <div key={i} className="register-review-card">
+            {MINI_REVIEWS.map((r) => (
+              <div key={r.name} className="register-review-card">
                 <div className="register-review-header">
                   <img
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${r.pokemon}.gif`}
@@ -227,9 +227,12 @@ export default function RegisterPage() {
           <div className="register-faq-list">
             {FAQ.map((item, i) => (
               <div
-                key={i}
+                key={item.q}
                 className={`register-faq-item ${openFaq === i ? 'open' : ''}`}
+                role="button"
+                tabIndex={0}
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenFaq(openFaq === i ? null : i); } }}
               >
                 <div className="register-faq-question">
                   <span>{item.q}</span>

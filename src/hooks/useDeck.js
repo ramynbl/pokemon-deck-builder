@@ -1,18 +1,37 @@
 import { useState, useEffect } from 'react';
 import { MAX_CARDS, MAX_COPIES, FORMAT } from '../constants';
 
+// Versioned storage keys to allow safe schema migrations
+const STORAGE_KEYS = {
+  pocket: 'pokemon_pocket_deck:v1',
+  classic: 'pokemon_classic_deck:v1',
+};
+
+// Migrate old unversioned keys to versioned ones (one-time)
+function migrateStorage() {
+  const oldKeys = { pocket: 'pokemon_pocket_deck', classic: 'pokemon_classic_deck' };
+  for (const [format, oldKey] of Object.entries(oldKeys)) {
+    const newKey = STORAGE_KEYS[format];
+    if (!localStorage.getItem(newKey) && localStorage.getItem(oldKey)) {
+      localStorage.setItem(newKey, localStorage.getItem(oldKey));
+      localStorage.removeItem(oldKey);
+    }
+  }
+}
+
 export function useDeck(format = FORMAT.POCKET) {
   const [decks, setDecks] = useState(() => {
+    migrateStorage();
     return {
-      pocket: JSON.parse(localStorage.getItem('pokemon_pocket_deck')) || [],
-      classic: JSON.parse(localStorage.getItem('pokemon_classic_deck')) || []
+      pocket: JSON.parse(localStorage.getItem(STORAGE_KEYS.pocket)) || [],
+      classic: JSON.parse(localStorage.getItem(STORAGE_KEYS.classic)) || []
     };
   });
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem('pokemon_pocket_deck', JSON.stringify(decks.pocket));
-    localStorage.setItem('pokemon_classic_deck', JSON.stringify(decks.classic));
+    localStorage.setItem(STORAGE_KEYS.pocket, JSON.stringify(decks.pocket));
+    localStorage.setItem(STORAGE_KEYS.classic, JSON.stringify(decks.classic));
   }, [decks]);
 
   const deck = decks[format] || [];
